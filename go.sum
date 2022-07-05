@@ -17,10 +17,10 @@ github.com/google/go-querystring v1.1.0 h1:AnCroh3fv4ZBgVIf1Iwtovgjaw/GiKJo8M8yD
 github.com/google/go-querystring v1.1.0/go.mod h1:Kcdr2DB4koayq7X8pmAG4sNG59So17icRSOU623lUBU=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
-github.com/sagernet/sing v0.0.0-20220704113227-8b990551511a h1:IvYjuvuPNmZzQfBbCxE/uQqGkNWUa5/KrEMIecRMjZk=
-github.com/sagernet/sing v0.0.0-20220704113227-8b990551511a/go.mod h1:3ZmoGNg/nNJTyHAZFNRSPaXpNIwpDvyIiAUd0KIWV5c=
-github.com/sagernet/sing-box v0.0.0-20220704113958-f76102dab512 h1:hZ/oWGx6Ff1HMqhCqmahvaW4W3gb83/jBhmWu1Cuf8Y=
-github.com/sagernet/sing-box v0.0.0-20220704113958-f76102dab512/go.mod h1:Yf1jgOxozYlIYCK2HFUzVf06U2wJP3RcTHl0XACFX/c=
+github.com/sagernet/sing v0.0.0-20220705005401-57d12d875b7a h1:FhrHCkox9scuTzcT5DDh6flVLFuqU+QSk3VONd41I+o=
+github.com/sagernet/sing v0.0.0-20220705005401-57d12d875b7a/go.mod h1:3ZmoGNg/nNJTyHAZFNRSPaXpNIwpDvyIiAUd0KIWV5c=
+github.com/sagernet/sing-box v0.0.0-20220705010535-8392567962ac h1:oGv23zqrGbSENOPCnUlT6s1L0ZGnksAZz6mNgJb7WOc=
+github.com/sagernet/sing-box v0.0.0-20220705010535-8392567962ac/go.mod h1:Y+TVnQmBOShqlXwZ5bQIByfV4CRERky24YWWy91XSe0=
 github.com/sirupsen/logrus v1.8.1 h1:dJKuHgqk1NNQlqoA6BTlM1Wf9DOH3NBjQyu0h9+AZZE=
 github.com/sirupsen/logrus v1.8.1/go.mod h1:yWOB1SBYBC5VeMP7gHvWumXLIWorT60ONWic61uBYv0=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
