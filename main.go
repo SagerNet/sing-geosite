@@ -102,10 +102,12 @@ func parse(vGeositeData []byte) (map[string][]geosite.Item, error) {
 					Value: domain.Value,
 				})
 			case routercommon.Domain_RootDomain:
-				domains = append(domains, geosite.Item{
-					Type:  geosite.RuleTypeDomain,
-					Value: domain.Value,
-				})
+				if strings.Contains(domain.Value, ".") {
+					domains = append(domains, geosite.Item{
+						Type:  geosite.RuleTypeDomain,
+						Value: domain.Value,
+					})
+				}
 				domains = append(domains, geosite.Item{
 					Type:  geosite.RuleTypeDomainSuffix,
 					Value: "." + domain.Value,
