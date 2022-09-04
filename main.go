@@ -88,9 +88,14 @@ func parse(vGeositeData []byte) (map[string][]geosite.Item, error) {
 	}
 	domainMap := make(map[string][]geosite.Item)
 	for _, vGeositeEntry := range vGeositeList.Entry {
+		code := strings.ToLower(vGeositeEntry.CountryCode)
 		domains := make([]geosite.Item, 0, len(vGeositeEntry.Domain)*2)
+		attributes := make(map[string][]*routercommon.Domain)
 		for _, domain := range vGeositeEntry.Domain {
 			if len(domain.Attribute) > 0 {
+				for _, attribute := range domain.Attribute {
+					attributes[attribute.Key] = append(attributes[attribute.Key], domain)
+				}
 				continue
 			}
 			switch domain.Type {
@@ -122,7 +127,41 @@ func parse(vGeositeData []byte) (map[string][]geosite.Item, error) {
 				})
 			}
 		}
-		domainMap[strings.ToLower(vGeositeEntry.CountryCode)] = common.Uniq(domains)
+		domainMap[code] = common.Uniq(domains)
+		for attribute, attributeEntries := range attributes {
+			attributeDomains := make([]geosite.Item, 0, len(attributeEntries)*2)
+			for _, domain := range attributeEntries {
+				switch domain.Type {
+				case routercommon.Domain_Plain:
+					attributeDomains = append(attributeDomains, geosite.Item{
+						Type:  geosite.RuleTypeDomainKeyword,
+						Value: domain.Value,
+					})
+				case routercommon.Domain_Regex:
+					attributeDomains = append(attributeDomains, geosite.Item{
+						Type:  geosite.RuleTypeDomainRegex,
+						Value: domain.Value,
+					})
+				case routercommon.Domain_RootDomain:
+					if strings.Contains(domain.Value, ".") {
+						attributeDomains = append(attributeDomains, geosite.Item{
+							Type:  geosite.RuleTypeDomain,
+							Value: domain.Value,
+						})
+					}
+					attributeDomains = append(attributeDomains, geosite.Item{
+						Type:  geosite.RuleTypeDomainSuffix,
+						Value: "." + domain.Value,
+					})
+				case routercommon.Domain_Full:
+					attributeDomains = append(attributeDomains, geosite.Item{
+						Type:  geosite.RuleTypeDomain,
+						Value: domain.Value,
+					})
+				}
+			}
+			domainMap[code+"@"+attribute] = common.Uniq(attributeDomains)
+		}
 	}
 	return domainMap, nil
 }
