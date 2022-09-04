@@ -90,6 +90,9 @@ func parse(vGeositeData []byte) (map[string][]geosite.Item, error) {
 	for _, vGeositeEntry := range vGeositeList.Entry {
 		domains := make([]geosite.Item, 0, len(vGeositeEntry.Domain)*2)
 		for _, domain := range vGeositeEntry.Domain {
+			if len(domain.Attribute) > 0 {
+				continue
+			}
 			switch domain.Type {
 			case routercommon.Domain_Plain:
 				domains = append(domains, geosite.Item{
