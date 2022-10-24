@@ -186,7 +186,10 @@ func generate(release *github.RepositoryRelease, output string) error {
 }
 
 func setActionOutput(name string, content string) {
-	os.Stdout.WriteString("::set-output name=" + name + "::" + content + "\n")
+	f, err := os.OpenFile(os.Getenv("GITHUB_OUTPUT"), os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	common.Must(err)
+	defer f.Close()
+	common.Must1(f.WriteString(name + "=" + content + "\n"))
 }
 
 func release(source string, destination string, output string) error {
