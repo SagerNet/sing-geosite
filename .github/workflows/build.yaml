@@ -24,10 +24,10 @@ jobs:
         id: build
         env:
           GOPRIVATE: github.com/sagernet
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NO_SKIP: true
         run: |
-          git config --global url."https://${{ secrets.ACCESS_TOKEN }}@github.com".insteadOf "https://github.com"
+          git config --global url."https://${{ secrets.GITHUB_TOKEN }}@github.com".insteadOf "https://github.com"
           go run -v .
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
