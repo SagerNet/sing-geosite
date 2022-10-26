@@ -96,7 +96,6 @@ func parse(vGeositeData []byte) (map[string][]geosite.Item, error) {
 				for _, attribute := range domain.Attribute {
 					attributes[attribute.Key] = append(attributes[attribute.Key], domain)
 				}
-				continue
 			}
 			switch domain.Type {
 			case routercommon.Domain_Plain:

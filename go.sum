@@ -53,10 +53,10 @@ github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZb
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/sagernet/quic-go v0.0.0-20220818150011-de611ab3e2bb h1:wc0yQ+SBn4TaTYRwpwvEm3nc4eRdxk6vtRbouLVZAzk=
 github.com/sagernet/quic-go v0.0.0-20220818150011-de611ab3e2bb/go.mod h1:MIccjRKnPTjWwAOpl+AUGWOkzyTd9tERytudxu+1ra4=
-github.com/sagernet/sing v0.0.0-20220903085538-02b9ca1cc133 h1:krnb8wKEFIdXhmJYlhJMbEcPsJFISy2fz90uHVz7hMU=
-github.com/sagernet/sing v0.0.0-20220903085538-02b9ca1cc133/go.mod h1:kZvzh1VDa/Dg/Bt5WaYKU0jl5ept8KKDpl3Ay4gRtRQ=
-github.com/sagernet/sing-box v0.0.0-20220904024421-1852c47392b1 h1:/1ES1zZcL0PIn5RXJGFDVIKCAc4jtd6SxVwuiEQttFc=
-github.com/sagernet/sing-box v0.0.0-20220904024421-1852c47392b1/go.mod h1:p79WzwQEah+3+FK8x/4A165P8KoiarvV0MSVvEtmzhI=
+github.com/sagernet/sing v0.0.0-20220913004915-27ddefbb8921 h1:xUHzlIbdlPV/fkToIO9futp9lmKIY+72ezk/whQ8XsI=
+github.com/sagernet/sing v0.0.0-20220913004915-27ddefbb8921/go.mod h1:kZvzh1VDa/Dg/Bt5WaYKU0jl5ept8KKDpl3Ay4gRtRQ=
+github.com/sagernet/sing-box v1.0.6 h1:WCEaCziGXZkybs+7btUfyo+PcqgbGdi/jnOH7X1SUY0=
+github.com/sagernet/sing-box v1.0.6/go.mod h1:Q8C7f45fKYJrinFp3TKWEIuXwZFUvbf7ZrYGmOxJ+v0=
 github.com/sagernet/sing-dns v0.0.0-20220822023312-3e086b06d666 h1:XUTocA/Ek0dFxUX+xJCWMPPFZCn2GC/uLrBjTSr1vHY=
 github.com/sagernet/sing-dns v0.0.0-20220822023312-3e086b06d666/go.mod h1:eDyH7AJmqBGjZQdQmpZIzlbTREudZuWDExMuGKgjRVM=
 github.com/sirupsen/logrus v1.9.0 h1:trlNQbNUG3OdDrDil03MCb1H2o9nJ1x4/5LYw7byDE0=
@@ -65,8 +65,8 @@ github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+
 github.com/stretchr/testify v1.5.1/go.mod h1:5W2xD1RspED5o8YsWQXVCued0rvSQ+mT+I5cxcmMvtA=
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/stretchr/testify v1.8.0 h1:pSgiaMZlXftHpm5L7V1+rVB+AZJydKsMxsQBIJw4PKk=
-github.com/v2fly/v2ray-core/v5 v5.0.8 h1:DI9dq0xWD/34aq3IxMEF3VsZXg99Rh3dqj3AyF4FQF0=
-github.com/v2fly/v2ray-core/v5 v5.0.8/go.mod h1:2qao7xME2I10GRDEO0jJIJ2l0yfnc4j0B2A9RnsYstQ=
+github.com/v2fly/v2ray-core/v5 v5.1.0 h1:r437j80lZcVDpSw57kmsqughVxI+ztig2Azdr7aMQgc=
+github.com/v2fly/v2ray-core/v5 v5.1.0/go.mod h1:2qao7xME2I10GRDEO0jJIJ2l0yfnc4j0B2A9RnsYstQ=
 github.com/yuin/goldmark v1.2.1/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.3.5/go.mod h1:mwnBkeHKe2W/ZEtQ+71ViKU8L12m81fl3OWwC1Zlc8k=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=

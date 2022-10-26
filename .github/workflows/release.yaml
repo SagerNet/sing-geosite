@@ -22,11 +22,7 @@ jobs:
           go-version: ${{ steps.version.outputs.go_version }}
       - name: Build geosite
         id: build
-        env:
-          GOPRIVATE: github.com/sagernet
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: |
-          git config --global url."https://${{ secrets.ACCESS_TOKEN }}@github.com".insteadOf "https://github.com"
           go run -v .
       - name: Generate sha256 hash
         if: steps.build.outputs.skip != 'true'

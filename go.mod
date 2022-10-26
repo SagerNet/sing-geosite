@@ -4,10 +4,10 @@ go 1.18
 
 require (
 	github.com/google/go-github/v45 v45.2.0
-	github.com/sagernet/sing v0.0.0-20220903085538-02b9ca1cc133
-	github.com/sagernet/sing-box v0.0.0-20220904024421-1852c47392b1
+	github.com/sagernet/sing v0.0.0-20220913004915-27ddefbb8921
+	github.com/sagernet/sing-box v1.0.6
 	github.com/sirupsen/logrus v1.9.0
-	github.com/v2fly/v2ray-core/v5 v5.0.8
+	github.com/v2fly/v2ray-core/v5 v5.1.0
 	google.golang.org/protobuf v1.28.1
 )
 
