@@ -10,7 +10,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/google/go-github/v45/github"
+	"github.com/google/go-github/v49/github"
+	"golang.org/x/oauth2"
 	"github.com/sagernet/sing-box/common/geosite"
 	"github.com/sagernet/sing/common"
 	E "github.com/sagernet/sing/common/exceptions"
@@ -24,7 +25,13 @@ var githubClient *github.Client
 func init() {
 	accessToken, loaded := os.LookupEnv("ACCESS_TOKEN")
 	if !loaded {
-		githubClient = github.NewClient(nil)
+		githubToken, _ := os.LookupEnv("GITHUB_TOKEN")
+		ctx := context.Background()
+		ts := oauth2.StaticTokenSource(
+			&oauth2.Token{AccessToken: githubToken},
+		)
+		tc := oauth2.NewClient(ctx, ts)
+		githubClient = github.NewClient(tc)
 		return
 	}
 	transport := &github.BasicAuthTransport{
@@ -184,8 +191,17 @@ func generate(release *github.RepositoryRelease, output string) error {
 	return geosite.Write(outputFile, domainMap)
 }
 
-func setActionOutput(name string, content string) {
-	os.Stdout.WriteString("::set-output name=" + name + "::" + content + "\n")
+func setActionOutput(name string, content string) error {
+	file, err := os.OpenFile(os.Getenv("GITHUB_OUTPUT"), os.O_APPEND|os.O_WRONLY, 0666)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+	_, err = file.WriteString(name + "=" + content + "\n")
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func release(source string, destination string, output string) error {
@@ -199,7 +215,10 @@ func release(source string, destination string, output string) error {
 	} else {
 		if os.Getenv("NO_SKIP") != "true" && strings.Contains(*destinationRelease.Name, *sourceRelease.Name) {
 			logrus.Info("already latest")
-			setActionOutput("skip", "true")
+			err = setActionOutput("skip", "true")
+			if err != nil {
+				return err
+			}
 			return nil
 		}
 	}
@@ -207,7 +226,10 @@ func release(source string, destination string, output string) error {
 	if err != nil {
 		return err
 	}
-	setActionOutput("tag", *sourceRelease.Name)
+	err = setActionOutput("tag", *sourceRelease.Name)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 

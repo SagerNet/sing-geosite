@@ -3,11 +3,12 @@ module sing-geosite
 go 1.18
 
 require (
-	github.com/google/go-github/v45 v45.2.0
+	github.com/google/go-github/v49 v49.0.0
 	github.com/sagernet/sing v0.0.0-20220913004915-27ddefbb8921
 	github.com/sagernet/sing-box v1.0.6
 	github.com/sirupsen/logrus v1.9.0
 	github.com/v2fly/v2ray-core/v5 v5.1.0
+	golang.org/x/oauth2 v0.0.0-20180821212333-d2e6202438be
 	google.golang.org/protobuf v1.28.1
 )
 
@@ -32,5 +33,6 @@ require (
 	golang.org/x/sys v0.0.0-20220829200755-d48e67d00261 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/tools v0.1.11-0.20220513221640-090b14e8501f // indirect
+	google.golang.org/appengine v1.6.7 // indirect
 	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
 )
