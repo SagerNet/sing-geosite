@@ -165,17 +165,14 @@ func parse(vGeositeData []byte) (map[string][]geosite.Item, error) {
 	return domainMap, nil
 }
 
-func generate(release *github.RepositoryRelease, output string) error {
+func generate(data []byte, output string) error {
 	outputFile, err := os.Create(output)
 	if err != nil {
 		return err
 	}
 	defer outputFile.Close()
-	vData, err := download(release)
-	if err != nil {
-		return err
-	}
-	domainMap, err := parse(vData)
+
+	domainMap, err := parse(data)
 	if err != nil {
 		return err
 	}
@@ -203,7 +200,11 @@ func release(source string, destination string, output string) error {
 			return nil
 		}
 	}
-	err = generate(sourceRelease, output)
+	data, err := download(destinationRelease)
+	if err != nil {
+		return err
+	}
+	err = generate(data, output)
 	if err != nil {
 		return err
 	}
@@ -211,8 +212,25 @@ func release(source string, destination string, output string) error {
 	return nil
 }
 
+func local(input string, output string) error {
+	data, err := os.ReadFile(input)
+	if err != nil {
+		return err
+	}
+	err = generate(data, output)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func main() {
-	err := release("v2fly/domain-list-community", "sagernet/sing-geosite", "geosite.db")
+	var err error
+	if len(os.Args) >= 2 {
+		err = local(os.Args[1], os.Args[2])
+	} else {
+		err = release("v2fly/domain-list-community", "sagernet/sing-geosite", "geosite.db")
+	}
 	if err != nil {
 		logrus.Fatal(err)
 	}
