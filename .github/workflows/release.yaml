@@ -46,4 +46,4 @@ jobs:
           tag_name: ${{ steps.build.outputs.tag }}
           files: |
             geosite.db
-            sha256sum
+            geosite.db.sha256sum
