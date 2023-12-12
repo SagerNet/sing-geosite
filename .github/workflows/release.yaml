@@ -33,6 +33,12 @@ jobs:
         if: steps.build.outputs.skip != 'true'
         run: |
           sha256sum geosite.db > geosite.db.sha256sum
+          sha256sum geosite-cn.db > geosite-cn.db.sha256sum
+      - name: Release release branch
+        if: steps.build.outputs.skip != 'true'
+        run: .github/release-branch.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: dev-drprasad/delete-older-releases@v0.3.2
         if: steps.build.outputs.skip != 'true'
         with:
@@ -46,4 +52,6 @@ jobs:
           tag_name: ${{ steps.build.outputs.tag }}
           files: |
             geosite.db
-            sha256sum
+            geosite.db.sha256sum
+            geosite-cn.db
+            geosite-cn.db.sha256sum
