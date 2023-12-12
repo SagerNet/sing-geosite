@@ -13,12 +13,12 @@ import (
 	"github.com/sagernet/sing-box/common/geosite"
 	"github.com/sagernet/sing-box/common/srs"
 	C "github.com/sagernet/sing-box/constant"
+	"github.com/sagernet/sing-box/log"
 	"github.com/sagernet/sing-box/option"
 	"github.com/sagernet/sing/common"
 	E "github.com/sagernet/sing/common/exceptions"
 
 	"github.com/google/go-github/v45/github"
-	"github.com/sagernet/sing-box/log"
 	"github.com/v2fly/v2ray-core/v5/app/router/routercommon"
 	"google.golang.org/protobuf/proto"
 )
@@ -169,12 +169,7 @@ func parse(vGeositeData []byte) (map[string][]geosite.Item, error) {
 	return domainMap, nil
 }
 
-func generate(release *github.RepositoryRelease, output string, ruleSetOutput string) error {
-	outputFile, err := os.Create(output)
-	if err != nil {
-		return err
-	}
-	defer outputFile.Close()
+func generate(release *github.RepositoryRelease, output string, cnOutput string, ruleSetOutput string) error {
 	vData, err := download(release)
 	if err != nil {
 		return err
@@ -185,7 +180,30 @@ func generate(release *github.RepositoryRelease, output string, ruleSetOutput st
 	}
 	outputPath, _ := filepath.Abs(output)
 	os.Stderr.WriteString("write " + outputPath + "\n")
+	outputFile, err := os.Create(output)
+	if err != nil {
+		return err
+	}
+	defer outputFile.Close()
 	err = geosite.Write(outputFile, domainMap)
+	if err != nil {
+		return err
+	}
+	cnCodes := []string{
+		"cn",
+		"geolocation-!cn",
+		"category-companies@cn",
+	}
+	cnDomainMap := make(map[string][]geosite.Item)
+	for _, cnCode := range cnCodes {
+		cnDomainMap[cnCode] = domainMap[cnCode]
+	}
+	cnOutputFile, err := os.Create(cnOutput)
+	if err != nil {
+		return err
+	}
+	defer cnOutputFile.Close()
+	err = geosite.Write(cnOutputFile, cnDomainMap)
 	if err != nil {
 		return err
 	}
@@ -228,7 +246,7 @@ func setActionOutput(name string, content string) {
 	os.Stdout.WriteString("::set-output name=" + name + "::" + content + "\n")
 }
 
-func release(source string, destination string, output string, ruleSetOutput string) error {
+func release(source string, destination string, output string, cnOutput string, ruleSetOutput string) error {
 	sourceRelease, err := fetch(source)
 	if err != nil {
 		return err
@@ -243,7 +261,7 @@ func release(source string, destination string, output string, ruleSetOutput str
 			return nil
 		}
 	}
-	err = generate(sourceRelease, output, ruleSetOutput)
+	err = generate(sourceRelease, output, cnOutput, ruleSetOutput)
 	if err != nil {
 		return err
 	}
@@ -252,7 +270,13 @@ func release(source string, destination string, output string, ruleSetOutput str
 }
 
 func main() {
-	err := release("v2fly/domain-list-community", "sagernet/sing-geosite", "geosite.db", "rule-set")
+	err := release(
+		"v2fly/domain-list-community",
+		"sagernet/sing-geosite",
+		"geosite.db",
+		"geosite-cn.db",
+		"rule-set",
+	)
 	if err != nil {
 		log.Fatal(err)
 	}
