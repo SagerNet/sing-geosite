@@ -264,6 +264,7 @@ func generate(release *github.RepositoryRelease, output string, cnOutput string,
 		"cn",
 		"geolocation-!cn",
 		"category-companies@cn",
+		"apple-update",
 	}
 	cnDomainMap := make(map[string][]geosite.Item)
 	for _, cnCode := range cnCodes {
