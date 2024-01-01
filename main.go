@@ -239,6 +239,45 @@ func filterTags(data map[string][]geosite.Item) {
 	os.Stderr.WriteString("merged " + strings.Join(mergedCodeMap, ",") + "\n")
 }
 
+func mergeTags(data map[string][]geosite.Item) {
+	var codeList []string
+	for code := range data {
+		codeList = append(codeList, code)
+	}
+	var cnCodeList []string
+	for _, code := range codeList {
+		codeParts := strings.Split(code, "@")
+		if len(codeParts) != 2 {
+			continue
+		}
+		if codeParts[1] != "cn" {
+			continue
+		}
+		if !strings.HasPrefix(codeParts[0], "category-") {
+			continue
+		}
+		if strings.HasSuffix(codeParts[0], "-cn") || strings.HasSuffix(codeParts[0], "-!cn") {
+			continue
+		}
+		cnCodeList = append(cnCodeList, code)
+	}
+	newMap := make(map[geosite.Item]bool)
+	for _, item := range data["cn"] {
+		newMap[item] = true
+	}
+	for _, code := range cnCodeList {
+		for _, item := range data[code] {
+			newMap[item] = true
+		}
+	}
+	newList := make([]geosite.Item, 0, len(newMap))
+	for item := range newMap {
+		newList = append(newList, item)
+	}
+	data["cn"] = newList
+	println("merged cn categories: " + strings.Join(cnCodeList, ","))
+}
+
 func generate(release *github.RepositoryRelease, output string, cnOutput string, ruleSetOutput string) error {
 	vData, err := download(release)
 	if err != nil {
@@ -249,6 +288,7 @@ func generate(release *github.RepositoryRelease, output string, cnOutput string,
 		return err
 	}
 	filterTags(domainMap)
+	mergeTags(domainMap)
 	outputPath, _ := filepath.Abs(output)
 	os.Stderr.WriteString("write " + outputPath + "\n")
 	outputFile, err := os.Create(output)
