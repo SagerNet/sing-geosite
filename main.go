@@ -301,8 +301,7 @@ func generate(release *github.RepositoryRelease, output string, cnOutput string,
 		return err
 	}
 	cnCodes := []string{
-		"cn",
-		"geolocation-!cn",
+		"geolocation-cn",
 	}
 	cnDomainMap := make(map[string][]geosite.Item)
 	for _, cnCode := range cnCodes {
