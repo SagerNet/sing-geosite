@@ -1,4 +1,5 @@
 /.idea/
 /vendor/
-/geosite.db
+**.db
 /rule-set/
+/rule-set-unstable/
