@@ -22,8 +22,3 @@ jobs:
           NO_SKIP: true
         run: |
           go run -v .
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: geosite.db
-          path: geosite.db
