@@ -266,6 +266,18 @@ func mergeTags(data map[string][]geosite.Item) {
 		}
 		cnCodeList = append(cnCodeList, code)
 	}
+	for _, code := range codeList {
+		if !strings.HasPrefix(code, "category-") {
+			continue
+		}
+		if !strings.HasSuffix(code, "-cn") {
+			continue
+		}
+		if strings.Contains(code, "@") {
+			continue
+		}
+		cnCodeList = append(cnCodeList, code)
+	}
 	newMap := make(map[geosite.Item]bool)
 	for _, item := range data["geolocation-cn"] {
 		newMap[item] = true
@@ -280,6 +292,10 @@ func mergeTags(data map[string][]geosite.Item) {
 		newList = append(newList, item)
 	}
 	data["geolocation-cn"] = newList
+	data["cn"] = append(newList, geosite.Item{
+		Type:  geosite.RuleTypeDomainSuffix,
+		Value: "cn",
+	})
 	println("merged cn categories: " + strings.Join(cnCodeList, ","))
 }
 
