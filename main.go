@@ -5,7 +5,6 @@ import (
 	"context"
 	"crypto/sha256"
 	"encoding/hex"
-	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -217,9 +216,6 @@ func filterTags(data map[string][]geosite.Item) {
 	}
 	for _, it := range badCodeList {
 		badList := data[it.badCode]
-		if it.badCode == "geolocation-!cn@cn" {
-			fmt.Println(badList)
-		}
 		if badList == nil {
 			panic("bad list not found: " + it.badCode)
 		}
