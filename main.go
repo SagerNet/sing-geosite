@@ -246,6 +246,13 @@ func mergeTags(data map[string][]geosite.Item) {
 		codeList = append(codeList, code)
 	}
 	var cnCodeList []string
+	// Company-wide @cn buckets may contain domains that are still unsuitable for
+	// a generic mainland-direct list. For example, category-companies@cn pulls in
+	// google@cn entries such as ssl.gstatic.com and fonts.googleapis.com, which
+	// makes geolocation-cn too broad for common direct-routing use.
+	geolocationCNMergeExclusions := map[string]bool{
+		"category-companies@cn": true,
+	}
 	for _, code := range codeList {
 		codeParts := strings.Split(code, "@")
 		if len(codeParts) != 2 {
@@ -258,6 +265,9 @@ func mergeTags(data map[string][]geosite.Item) {
 			continue
 		}
 		if strings.HasSuffix(codeParts[0], "-cn") || strings.HasSuffix(codeParts[0], "-!cn") {
+			continue
+		}
+		if geolocationCNMergeExclusions[code] {
 			continue
 		}
 		cnCodeList = append(cnCodeList, code)
