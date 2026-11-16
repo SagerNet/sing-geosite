@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain_suffix": [
+        "entsrv-uk.vodafone.com",
+        "epdg.epc.mnc015.mcc234.pub.3gppnetwork.org",
+        "epdg.epc.geo.mnc015.mcc234.pub.3gppnetwork.org",
+        "vuk-gto.prod.ondemandconnectivity.com",
+        "epdg.epc.mnc033.mcc234.pub.3gppnetwork.org",
+        "epdg.epc.mnc010.mcc234.pub.3gppnetwork.org",
+        "epdg.epc.mnc020.mcc234.pub.3gppnetwork.org"
+      ]
+    }
+  ]
+}
