@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain_suffix": [
+        "epdg.epc.mnc066.mcc515.pub.3gppnetwork.org",
+        "weconnect.globe.com.ph",
+        "epdg.epc.mnc003.mcc515.pub.3gppnetwork.org"
+      ]
+    }
+  ]
+}
